@@ -11,6 +11,8 @@ import {
   Mail,
   MoreHorizontal,
   X,
+  Upload,
+  Download,
 } from "lucide-react";
 import { cn, formatRelativeTime, getInitials } from "@/lib/utils";
 import { createLead } from "@/server/actions/leads";
@@ -92,13 +94,29 @@ export function LeadsClient({ leads, team, sources, tags, stages }: LeadsClientP
             {leads.length} {leads.length === 1 ? "lead" : "leads"}
           </p>
         </div>
-        <button
-          onClick={() => setShowModal(true)}
-          className="inline-flex items-center gap-2 bg-brand-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-brand-900 transition-colors"
-        >
-          <Plus className="h-4 w-4" />
-          Nuevo lead
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/api/v1/leads/export"
+            className="inline-flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <Download className="h-4 w-4" />
+            <span className="hidden sm:inline">Exportar</span>
+          </Link>
+          <Link
+            href="/leads/import"
+            className="inline-flex items-center gap-2 px-3 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            <Upload className="h-4 w-4" />
+            <span className="hidden sm:inline">Importar</span>
+          </Link>
+          <button
+            onClick={() => setShowModal(true)}
+            className="inline-flex items-center gap-2 bg-brand-800 text-white text-sm font-semibold px-4 py-2.5 rounded-lg hover:bg-brand-900 transition-colors"
+          >
+            <Plus className="h-4 w-4" />
+            Nuevo lead
+          </button>
+        </div>
       </div>
 
       {/* Search & Filters */}

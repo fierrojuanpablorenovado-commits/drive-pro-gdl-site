@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import { cn, formatDateTime, formatRelativeTime, getInitials, getUrgencyColor } from "@/lib/utils";
 import { moveLeadStage } from "@/server/actions/leads";
+import { createActivity, createNote, reassignLead } from "@/server/actions/activities";
+import { createTask } from "@/server/actions/tasks";
 
 interface LeadDetailClientProps {
   lead: any;
@@ -235,6 +237,25 @@ export function LeadDetailClient({ lead, stages, team, currentUserId }: LeadDeta
                 </p>
               </div>
             </div>
+
+            <div className="pt-2 border-t border-gray-100">
+              <label className="text-xs text-gray-400">Reasignar</label>
+              <select
+                value={lead.assignedToId || ""}
+                onChange={async (e) => {
+                  if (e.target.value && e.target.value !== lead.assignedToId) {
+                    await reassignLead(lead.id, e.target.value);
+                    router.refresh();
+                  }
+                }}
+                className="w-full mt-1 px-2 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+              >
+                <option value="">Sin asignar</option>
+                {team.map((t) => (
+                  <option key={t.id} value={t.id}>{t.name}</option>
+                ))}
+              </select>
+            </div>
           </div>
         </div>
 
@@ -385,6 +406,68 @@ export function LeadDetailClient({ lead, stages, team, currentUserId }: LeadDeta
                 </div>
               )}
             </div>
+          </div>
+
+          {/* Quick actions */}
+          <div className="mt-4 bg-white rounded-xl border border-gray-200 p-5">
+            <h3 className="text-sm font-semibold text-gray-900 mb-3">Acción rápida</h3>
+
+            {/* Add activity */}
+            <form
+              action={async (formData: FormData) => {
+                formData.set("leadId", lead.id);
+                await createActivity(formData);
+                router.refresh();
+              }}
+              className="space-y-3"
+            >
+              <div className="flex gap-2">
+                <select name="type" defaultValue="CALL" className="px-2 py-2 rounded-lg border border-gray-300 text-xs bg-white">
+                  <option value="CALL">Llamada</option>
+                  <option value="WHATSAPP">WhatsApp</option>
+                  <option value="EMAIL">Correo</option>
+                  <option value="MEETING">Reunión</option>
+                  <option value="VISIT">Visita</option>
+                  <option value="DOCUMENT">Documento</option>
+                  <option value="OTHER">Otro</option>
+                </select>
+                <input
+                  name="description"
+                  type="text"
+                  placeholder="Descripción de la actividad..."
+                  className="flex-1 px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                />
+                <button
+                  type="submit"
+                  className="px-3 py-2 bg-brand-800 text-white text-xs font-semibold rounded-lg hover:bg-brand-900 shrink-0"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+            </form>
+
+            {/* Add note */}
+            <form
+              action={async (formData: FormData) => {
+                formData.set("leadId", lead.id);
+                await createNote(formData);
+                router.refresh();
+              }}
+              className="mt-3 flex gap-2"
+            >
+              <input
+                name="content"
+                type="text"
+                placeholder="Agregar nota..."
+                className="flex-1 px-3 py-2 rounded-lg border border-gray-300 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+              />
+              <button
+                type="submit"
+                className="px-3 py-2 bg-gray-100 text-gray-700 text-xs font-semibold rounded-lg hover:bg-gray-200 shrink-0"
+              >
+                <Send className="h-4 w-4" />
+              </button>
+            </form>
           </div>
         </div>
       </div>

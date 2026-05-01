@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -8,8 +9,11 @@ import {
   TrendingDown,
   CheckCircle2,
   Users,
+  CheckCheck,
+  X,
 } from "lucide-react";
 import { cn, formatRelativeTime } from "@/lib/utils";
+import { markAlertRead, markAllAlertsRead, dismissAlert } from "@/server/actions/alerts";
 
 interface AlertsClientProps {
   alerts: any[];
@@ -26,8 +30,24 @@ const alertConfig: Record<string, { icon: any; color: string; label: string }> =
 };
 
 export function AlertsClient({ alerts }: AlertsClientProps) {
+  const router = useRouter();
   const unread = alerts.filter((a) => !a.isRead);
   const read = alerts.filter((a) => a.isRead);
+
+  async function handleMarkAllRead() {
+    await markAllAlertsRead();
+    router.refresh();
+  }
+
+  async function handleMarkRead(alertId: string) {
+    await markAlertRead(alertId);
+    router.refresh();
+  }
+
+  async function handleDismiss(alertId: string) {
+    await dismissAlert(alertId);
+    router.refresh();
+  }
 
   return (
     <div>
@@ -40,6 +60,15 @@ export function AlertsClient({ alerts }: AlertsClientProps) {
               : "Sin alertas nuevas"}
           </p>
         </div>
+        {unread.length > 0 && (
+          <button
+            onClick={handleMarkAllRead}
+            className="inline-flex items-center gap-2 px-3 py-2 text-xs font-medium text-brand-600 bg-brand-50 rounded-lg hover:bg-brand-100 transition-colors"
+          >
+            <CheckCheck className="h-4 w-4" />
+            Marcar todas como leídas
+          </button>
+        )}
       </div>
 
       {unread.length === 0 && read.length === 0 && (
@@ -77,14 +106,28 @@ export function AlertsClient({ alerts }: AlertsClientProps) {
                       {formatRelativeTime(alert.createdAt)}
                     </span>
                   </div>
-                  {alert.lead && (
-                    <Link
-                      href={`/leads/${alert.lead.id}`}
-                      className="inline-flex items-center gap-1 mt-2 text-xs text-brand-600 hover:underline font-medium"
+                  <div className="flex items-center gap-3 mt-2">
+                    {alert.lead && (
+                      <Link
+                        href={`/leads/${alert.lead.id}`}
+                        className="text-xs text-brand-600 hover:underline font-medium"
+                      >
+                        Ver lead: {alert.lead.name}
+                      </Link>
+                    )}
+                    <button
+                      onClick={() => handleMarkRead(alert.id)}
+                      className="text-xs text-gray-400 hover:text-gray-600 ml-auto"
                     >
-                      Ver lead: {alert.lead.name}
-                    </Link>
-                  )}
+                      Marcar leída
+                    </button>
+                    <button
+                      onClick={() => handleDismiss(alert.id)}
+                      className="text-gray-300 hover:text-danger-500"
+                    >
+                      <X className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
                 </div>
               </div>
             );
