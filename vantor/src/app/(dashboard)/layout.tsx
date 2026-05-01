@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
+import { db } from "@/server/db";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
 import { MobileNav } from "@/components/layout/mobile-nav";
@@ -17,6 +18,14 @@ export default async function DashboardLayout({
 
   const user = session.user as any;
 
+  const alertCount = await db.alert.count({
+    where: {
+      orgId: user.orgId,
+      isRead: false,
+      ...(user.role === "SELLER" ? { userId: user.id } : {}),
+    },
+  });
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar />
@@ -24,7 +33,7 @@ export default async function DashboardLayout({
         <Header
           userName={user.name}
           orgName={user.orgName}
-          alertCount={0}
+          alertCount={alertCount}
         />
         <main className="p-4 lg:p-6 pb-20 lg:pb-6">{children}</main>
       </div>

@@ -26,5 +26,14 @@ export default async function UsersPage() {
     orderBy: { createdAt: "asc" },
   });
 
-  return <UsersClient users={users as any} currentUserId={user.id} currentRole={user.role} />;
+  const sub = await db.subscription.findUnique({ where: { orgId: user.orgId } });
+
+  return (
+    <UsersClient
+      users={users as any}
+      currentUserId={user.id}
+      currentRole={user.role}
+      maxUsers={sub?.maxUsers || 3}
+    />
+  );
 }

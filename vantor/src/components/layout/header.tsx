@@ -1,7 +1,9 @@
 "use client";
 
-import { Bell, Menu, Search } from "lucide-react";
+import Link from "next/link";
+import { Bell, Menu } from "lucide-react";
 import { getInitials } from "@/lib/utils";
+import { GlobalSearch } from "./global-search";
 
 interface HeaderProps {
   userName?: string;
@@ -27,25 +29,21 @@ export function Header({
             <Menu className="h-5 w-5" />
           </button>
 
-          <div className="hidden sm:flex items-center gap-2 bg-gray-50 rounded-lg px-3 py-2 w-64">
-            <Search className="h-4 w-4 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Buscar leads, tareas..."
-              className="bg-transparent text-sm outline-none w-full placeholder:text-gray-400"
-            />
-          </div>
+          <GlobalSearch />
         </div>
 
         <div className="flex items-center gap-3">
-          <button className="relative p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors">
+          <Link
+            href="/alerts"
+            className="relative p-2 rounded-lg text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+          >
             <Bell className="h-5 w-5" />
             {alertCount > 0 && (
               <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center h-5 w-5 rounded-full bg-danger-500 text-white text-[10px] font-bold">
                 {alertCount > 99 ? "99+" : alertCount}
               </span>
             )}
-          </button>
+          </Link>
 
           <div className="flex items-center gap-3 pl-3 border-l border-gray-200">
             <div className="hidden sm:block text-right">

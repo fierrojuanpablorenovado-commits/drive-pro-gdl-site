@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { logoutAction } from "@/server/actions/auth";
 import {
   LayoutDashboard,
   Users,
@@ -13,6 +14,7 @@ import {
   Settings,
   UserCog,
   LogOut,
+  Repeat,
 } from "lucide-react";
 
 const navigation = [
@@ -22,6 +24,7 @@ const navigation = [
   { name: "Tareas", href: "/tasks", icon: CheckSquare },
   { name: "Alertas", href: "/alerts", icon: AlertTriangle },
   { name: "Reportes", href: "/reports", icon: BarChart3 },
+  { name: "Secuencias", href: "/sequences", icon: Repeat },
 ];
 
 const bottomNav = [
@@ -35,7 +38,9 @@ export function Sidebar() {
   return (
     <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:fixed lg:inset-y-0 bg-brand-800 text-white">
       <div className="flex items-center h-16 px-6">
-        <span className="text-xl font-bold tracking-tight">Vantor</span>
+        <Link href="/dashboard" className="text-xl font-bold tracking-tight">
+          Vantor
+        </Link>
       </div>
 
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto scrollbar-thin">
@@ -79,10 +84,15 @@ export function Sidebar() {
           );
         })}
 
-        <button className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/70 hover:bg-white/10 hover:text-white transition-colors w-full">
-          <LogOut className="h-5 w-5 shrink-0" />
-          Cerrar sesión
-        </button>
+        <form action={logoutAction}>
+          <button
+            type="submit"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-white/70 hover:bg-white/10 hover:text-white transition-colors w-full"
+          >
+            <LogOut className="h-5 w-5 shrink-0" />
+            Cerrar sesión
+          </button>
+        </form>
       </div>
     </aside>
   );

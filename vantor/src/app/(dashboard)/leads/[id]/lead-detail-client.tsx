@@ -21,6 +21,8 @@ import { cn, formatDateTime, formatRelativeTime, getInitials, getUrgencyColor } 
 import { moveLeadStage } from "@/server/actions/leads";
 import { createActivity, createNote, reassignLead } from "@/server/actions/activities";
 import { createTask } from "@/server/actions/tasks";
+import { applySequence } from "@/server/actions/sequences";
+import { SEQUENCE_TEMPLATES } from "@/server/services/sequences";
 
 interface LeadDetailClientProps {
   lead: any;
@@ -257,6 +259,32 @@ export function LeadDetailClient({ lead, stages, team, currentUserId }: LeadDeta
               </select>
             </div>
           </div>
+
+          {/* Apply sequence */}
+          {lead.status !== "WON" && lead.status !== "LOST" && (
+            <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-3">
+              <h3 className="text-sm font-semibold text-gray-900">Secuencia de seguimiento</h3>
+              <select
+                defaultValue=""
+                onChange={async (e) => {
+                  if (e.target.value) {
+                    const result = await applySequence(lead.id, e.target.value);
+                    if (result.success) {
+                      router.refresh();
+                    }
+                    e.target.value = "";
+                  }
+                }}
+                className="w-full px-2 py-1.5 rounded-lg border border-gray-300 text-xs bg-white"
+              >
+                <option value="">Aplicar secuencia...</option>
+                {SEQUENCE_TEMPLATES.map((t) => (
+                  <option key={t.id} value={t.id}>{t.name} ({t.steps.length} pasos)</option>
+                ))}
+              </select>
+              <p className="text-[10px] text-gray-400">Crea tareas automáticas según el template seleccionado</p>
+            </div>
+          )}
         </div>
 
         {/* Right: Activity, Notes, Tasks */}
