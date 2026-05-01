@@ -1,0 +1,403 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// ORGANIZACIÓN (TENANT)
+// ============================================
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  phone     String?
+  email     String?
+  logo      String?
+  timezone  String   @default("America/Mexico_City")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users          User[]
+  leads          Lead[]
+  pipelineStages PipelineStage[]
+  tags           Tag[]
+  alerts         Alert[]
+  auditLogs      AuditLog[]
+  tasks          Task[]
+  subscription   Subscription?
+  lostReasons    LostReason[]
+  leadSources    LeadSource[]
+}
+
+// ============================================
+// USUARIO
+// ============================================
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         Role      @default(SELLER)
+  phone        String?
+  avatar       String?
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  orgId        String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  assignedLeads Lead[]      @relation("AssignedTo")
+  createdLeads  Lead[]      @relation("CreatedBy")
+  activities    Activity[]
+  notes         Note[]
+  tasks         Task[]      @relation("TaskAssignee")
+  createdTasks  Task[]      @relation("TaskCreator")
+  auditLogs     AuditLog[]
+
+  @@index([orgId])
+  @@index([email])
+}
+
+enum Role {
+  OWNER
+  ADMIN
+  MANAGER
+  SUPERVISOR
+  SELLER
+}
+
+// ============================================
+// LEAD / PROSPECTO
+// ============================================
+
+model Lead {
+  id             String     @id @default(cuid())
+  orgId          String
+  name           String
+  phone          String?
+  email          String?
+  company        String?
+  source         String?
+  interest       String?
+  priority       Priority   @default(MEDIUM)
+  status         LeadStatus @default(NEW)
+  stageId        String
+  assignedToId   String?
+  createdById    String?
+  lostReasonId   String?
+  closedAt       DateTime?
+  firstContactAt DateTime?
+  lastContactAt  DateTime?
+  nextActionAt   DateTime?
+  nextActionNote String?
+  customFields   Json?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  organization Organization  @relation(fields: [orgId], references: [id])
+  stage        PipelineStage @relation(fields: [stageId], references: [id])
+  assignedTo   User?         @relation("AssignedTo", fields: [assignedToId], references: [id])
+  createdBy    User?         @relation("CreatedBy", fields: [createdById], references: [id])
+  lostReason   LostReason?   @relation(fields: [lostReasonId], references: [id])
+  activities   Activity[]
+  notes        Note[]
+  tasks        Task[]
+  alerts       Alert[]
+  tags         LeadTag[]
+
+  @@index([orgId])
+  @@index([orgId, status])
+  @@index([orgId, stageId])
+  @@index([assignedToId])
+  @@index([orgId, assignedToId])
+  @@index([orgId, createdAt])
+}
+
+enum Priority {
+  HIGH
+  MEDIUM
+  LOW
+}
+
+enum LeadStatus {
+  NEW
+  CONTACTED
+  QUALIFIED
+  WON
+  LOST
+}
+
+// ============================================
+// PIPELINE
+// ============================================
+
+model PipelineStage {
+  id           String  @id @default(cuid())
+  orgId        String
+  name         String
+  position     Int
+  color        String  @default("#6B7280")
+  slaHours     Int?
+  isDefault    Boolean @default(false)
+  isClosedWon  Boolean @default(false)
+  isClosedLost Boolean @default(false)
+  createdAt    DateTime @default(now())
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  leads        Lead[]
+
+  @@index([orgId])
+  @@unique([orgId, position])
+}
+
+// ============================================
+// ACTIVIDAD
+// ============================================
+
+model Activity {
+  id          String       @id @default(cuid())
+  leadId      String
+  userId      String
+  type        ActivityType
+  description String?
+  metadata    Json?
+  createdAt   DateTime     @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([leadId])
+  @@index([userId])
+  @@index([leadId, createdAt])
+}
+
+enum ActivityType {
+  CALL
+  WHATSAPP
+  EMAIL
+  MEETING
+  VISIT
+  NOTE
+  STAGE_CHANGE
+  ASSIGNMENT
+  DOCUMENT
+  OTHER
+}
+
+// ============================================
+// NOTAS
+// ============================================
+
+model Note {
+  id        String   @id @default(cuid())
+  leadId    String
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([leadId])
+}
+
+// ============================================
+// TAREAS
+// ============================================
+
+model Task {
+  id          String     @id @default(cuid())
+  orgId       String
+  leadId      String?
+  assigneeId  String
+  creatorId   String
+  title       String
+  description String?
+  type        TaskType
+  priority    Priority   @default(MEDIUM)
+  status      TaskStatus @default(PENDING)
+  dueDate     DateTime
+  completedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  lead         Lead?        @relation(fields: [leadId], references: [id])
+  assignee     User         @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  creator      User         @relation("TaskCreator", fields: [creatorId], references: [id])
+
+  @@index([orgId])
+  @@index([assigneeId])
+  @@index([assigneeId, status])
+  @@index([assigneeId, dueDate])
+  @@index([leadId])
+}
+
+enum TaskType {
+  CALL
+  WHATSAPP
+  EMAIL
+  MEETING
+  VISIT
+  DOCUMENT
+  FOLLOW_UP
+  OTHER
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// ============================================
+// ALERTAS
+// ============================================
+
+model Alert {
+  id        String    @id @default(cuid())
+  orgId     String
+  leadId    String?
+  userId    String?
+  type      AlertType
+  message   String
+  isRead    Boolean   @default(false)
+  readAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  lead         Lead?        @relation(fields: [leadId], references: [id])
+
+  @@index([orgId])
+  @@index([orgId, isRead])
+  @@index([userId, isRead])
+}
+
+enum AlertType {
+  LEAD_UNATTENDED
+  LEAD_NO_FOLLOWUP
+  LEAD_STAGNANT
+  TASK_OVERDUE
+  LEAD_AT_RISK
+  LEAD_OVERLOAD
+  CONVERSION_DROP
+}
+
+// ============================================
+// ETIQUETAS
+// ============================================
+
+model Tag {
+  id    String @id @default(cuid())
+  orgId String
+  name  String
+  color String @default("#3B82F6")
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  leads        LeadTag[]
+
+  @@unique([orgId, name])
+}
+
+model LeadTag {
+  leadId String
+  tagId  String
+
+  lead Lead @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  tag  Tag  @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([leadId, tagId])
+}
+
+// ============================================
+// BITÁCORA / AUDITORÍA
+// ============================================
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  orgId      String
+  userId     String?
+  entityType String
+  entityId   String
+  action     String
+  changes    Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  user         User?        @relation(fields: [userId], references: [id])
+
+  @@index([orgId])
+  @@index([orgId, entityType, entityId])
+  @@index([orgId, createdAt])
+}
+
+// ============================================
+// MOTIVOS DE PÉRDIDA
+// ============================================
+
+model LostReason {
+  id    String @id @default(cuid())
+  orgId String
+  name  String
+
+  organization Organization @relation(fields: [orgId], references: [id])
+  leads        Lead[]
+
+  @@unique([orgId, name])
+}
+
+// ============================================
+// FUENTES DE LEADS
+// ============================================
+
+model LeadSource {
+  id    String @id @default(cuid())
+  orgId String
+  name  String
+  type  String
+
+  organization Organization @relation(fields: [orgId], references: [id])
+
+  @@unique([orgId, name])
+}
+
+// ============================================
+// SUSCRIPCIÓN
+// ============================================
+
+model Subscription {
+  id          String    @id @default(cuid())
+  orgId       String    @unique
+  plan        Plan      @default(STARTER)
+  status      SubStatus @default(ACTIVE)
+  maxUsers    Int       @default(3)
+  periodStart DateTime
+  periodEnd   DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  organization Organization @relation(fields: [orgId], references: [id])
+}
+
+enum Plan {
+  STARTER
+  GROWTH
+  PRO
+}
+
+enum SubStatus {
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+  TRIAL
+}
