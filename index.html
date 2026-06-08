@@ -3,67 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drive Pro GDL - Flotilla de Autos</title>
+    <title>OJO | Drive Pro GDL — Mecánica Integral de Flotillas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Drive Pro GDL</div>
-            <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#flota">Nuestra Flota</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
-        </nav>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="#inicio" class="logo">
+                <span class="logo-ojo">OJO</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-brand">Drive Pro GDL</span>
+            </a>
+            <nav class="nav" id="nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#equipo">Equipo</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#diagnostico">Diagnóstico</a>
+                <a href="#reporte">Reportar Unidad</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <button class="menu-btn" id="menuBtn" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </header>
 
-    <!-- Sección hero -->
+    <!-- HERO -->
     <section id="inicio" class="hero">
-        <!-- La imagen principal se aloja en la raíz del repositorio -->
-        <img src="banner.png" alt="Ilustración de una flotilla de autos">
-        <div class="contenido">
-            <h1>Drive Pro GDL: Flotilla de Autos para Plataformas</h1>
-            <p>Autos seguros y cómodos para conductores en Guadalajara, Jalisco.</p>
+        <div class="hero-bg">
+            <img src="banner.png" alt="Flotilla Drive Pro GDL" class="hero-img">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-badge">🔧 Agencia Mecánica Especializada · Flotillas</div>
+            <h1 class="hero-title">
+                <span class="accent-text">OJO</span> tiene los ojos<br>en tu flotilla
+            </h1>
+            <p class="hero-sub">
+                Tu equipo completo de mecánicos, ingenieros y técnicos especialistas.
+                Resolvemos cada falla de cada unidad — con escáner, imágenes, audio o comentarios del chofer.
+            </p>
+            <div class="hero-channels">
+                <span>📡 Escaneo OBD</span>
+                <span>📸 Imágenes</span>
+                <span>🎙️ Audio</span>
+                <span>📋 Reportes</span>
+                <span>💬 Comentarios</span>
+            </div>
+            <div class="hero-actions">
+                <a href="#reporte" class="btn btn-primary">Reportar Unidad Ahora</a>
+                <a href="#equipo" class="btn btn-ghost">Conoce al Equipo</a>
+            </div>
         </div>
     </section>
 
-    <!-- Sección Nuestra Flota -->
-    <section id="flota" class="flota">
-        <h2>Nuestra Flota</h2>
-        <p class="descripcion">
-            Nuestra flotilla está compuesta por vehículos modernos y bien mantenidos, ideales para operar en plataformas de transporte como Uber,
-            Didi y otras. Todos nuestros autos cuentan con seguro, aire acondicionado y son sometidos a revisiones regulares para garantizar
-            la seguridad y comodidad de los pasajeros y conductores.
-        </p>
-    </section>
+    <!-- STATS BAR -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <strong>13+</strong>
+            <span>Especialistas</span>
+        </div>
+        <div class="stat-item">
+            <strong>24/7</strong>
+            <span>Emergencias</span>
+        </div>
+        <div class="stat-item">
+            <strong>5</strong>
+            <span>Canales de Diagnóstico</span>
+        </div>
+        <div class="stat-item">
+            <strong>100%</strong>
+            <span>Cobertura de Flotilla</span>
+        </div>
+        <div class="stat-item">
+            <strong>&lt;30min</strong>
+            <span>Tiempo de Respuesta</span>
+        </div>
+    </div>
 
-    <!-- Sección Servicios -->
-    <section id="servicios" class="servicios">
-        <h2>Servicios</h2>
-        <ul>
-            <li><strong>Renta flexible:</strong> Puedes rentar por día, semana o mes según tus necesidades.</li>
-            <li><strong>Mantenimiento incluido:</strong> Nos encargamos del servicio mecánico y mantenimientos preventivos.</li>
-            <li><strong>Asistencia 24/7:</strong> Contamos con un equipo de soporte listo para ayudarte en caso de emergencia.</li>
-            <li><strong>Seguro total:</strong> Todos nuestros vehículos cuentan con seguro de cobertura amplia.</li>
-            <li><strong>Gestión de trámites:</strong> Te ayudamos con la gestión de permisos y requisitos de plataformas.</li>
-        </ul>
-    </section>
+    <!-- EQUIPO -->
+    <section id="equipo" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Nuestro Equipo</span>
+                <h2>El Escuadrón Completo de <span class="accent-text">OJO</span></h2>
+                <p>Desde el chalán hasta el ingeniero automotriz — cada unidad tiene el especialista correcto.</p>
+            </div>
 
-    <!-- Sección Contacto -->
-    <section id="contacto" class="contacto">
-        <h2>Contacto</h2>
-        <div class="info">
-            <p><strong>Teléfono:</strong> 33 1234 5678</p>
-            <p><strong>Correo:</strong> contacto@driveprogdl.com</p>
-            <p><strong>Dirección:</strong> Guadalajara, Jalisco, México</p>
-            <p>¿Estás listo para unirte a nuestra flotilla? Contáctanos hoy mismo y te ayudaremos a comenzar.</p>
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="mecanica">Mecánica</button>
+                <button class="filter-btn" data-filter="ingenieria">Ingeniería</button>
+                <button class="filter-btn" data-filter="sistemas">Sistemas</button>
+                <button class="filter-btn" data-filter="especialistas">Especialistas</button>
+                <button class="filter-btn" data-filter="soporte">Soporte</button>
+            </div>
+
+            <div class="team-grid" id="teamGrid">
+
+                <!-- MECÁNICO GENERAL -->
+                <div class="team-card" data-category="mecanica">
+                    <div class="card-top mecanica-bg">
+                        <div class="card-icon">🔧</div>
+                        <span class="card-badge badge-mecanica">Mecánica</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Mecánico General</h3>
+                        <p>Primera línea de atención. Diagnóstico y reparación general de cualquier falla mecánica de la flotilla.</p>
+                        <div class="card-tags">
+                            <span>Motor</span><span>Transmisión</span><span>Diferencial</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MAESTRO MECÁNICO -->
+                <div class="team-card card-featured" data-category="mecanica">
+                    <div class="card-top maestro-bg">
+                        <div class="card-icon">⭐</div>
+                        <span class="card-badge badge-maestro">Maestro</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Maestro Mecánico</h3>
+                        <p>Diagnóstico avanzado y supervisión de reparaciones mayores. Garantiza la calidad de todos los trabajos.</p>
+                        <div class="card-tags">
+                            <span>Diagnóstico Avanzado</span><span>Supervisión</span><span>Garantía</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHALÁN -->
+                <div class="team-card" data-category="mecanica">
+                    <div class="card-top soporte-bg">
+                        <div class="card-icon">🛠️</div>
+                        <span class="card-badge badge-soporte">Soporte</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Chalán</h3>
+                        <p>Asistencia técnica ágil: cambios de aceite, filtros, revisiones preventivas y apoyo en taller.</p>
+                        <div class="card-tags">
+                            <span>Mantenimiento</span><span>Aceites</span><span>Filtros</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INGENIERO MECÁNICO -->
+                <div class="team-card" data-category="ingenieria">
+                    <div class="card-top ingenieria-bg">
+                        <div class="card-icon">⚙️</div>
+                        <span class="card-badge badge-ingenieria">Ingeniería</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Ingeniero Mecánico</h3>
+                        <p>Análisis estructural, cálculos de torque, diseño de soluciones y optimización de rendimiento.</p>
+                        <div class="card-tags">
+                            <span>Análisis Estructural</span><span>Torque</span><span>Optimización</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- INGENIERO AUTOMOTRIZ -->
+                <div class="team-card" data-category="ingenieria">
+                    <div class="card-top ingenieria-bg">
+                        <div class="card-icon">🚗</div>
+                        <span class="card-badge badge-ingenieria">Ingeniería</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Ingeniero Automotriz</h3>
+                        <p>Especialista en sistemas integrados: motor, tren motriz, electrónica y eficiencia energética.</p>
+                        <div class="card-tags">
+                            <span>Tren Motriz</span><span>Electrónica</span><span>Eficiencia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERTO EN FRENOS -->
+                <div class="team-card" data-category="especialistas">
+                    <div class="card-top frenos-bg">
+                        <div class="card-icon">🛑</div>
+                        <span class="card-badge badge-frenos">Frenos</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Experto en Frenos</h3>
+                        <p>Diagnóstico y reparación completa del sistema de frenado: discos, balatas, caliper y líneas hidráulicas.</p>
+                        <div class="card-tags">
+                            <span>Discos</span><span>Balatas</span><span>Hidráulico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERTO EN SUSPENSIONES -->
+                <div class="team-card" data-category="especialistas">
+                    <div class="card-top suspension-bg">
+                        <div class="card-icon">🏎️</div>
+                        <span class="card-badge badge-suspension">Suspensión</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Experto en Suspensiones</h3>
+                        <p>Diagnóstico y reparación de amortiguadores, resortes, rótulas, baleros y alineación de geometría.</p>
+                        <div class="card-tags">
+                            <span>Amortiguadores</span><span>Geometría</span><span>Rótulas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERTO EN ABS -->
+                <div class="team-card" data-category="sistemas">
+                    <div class="card-top abs-bg">
+                        <div class="card-icon">💻</div>
+                        <span class="card-badge badge-abs">ABS / ESP</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Experto en ABS</h3>
+                        <p>Diagnóstico electrónico de ABS, ESP, control de tracción y sistemas de seguridad activa del vehículo.</p>
+                        <div class="card-tags">
+                            <span>ABS</span><span>ESP</span><span>Control Tracción</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERTO EN MÓVILES / ELÉCTRICO -->
+                <div class="team-card" data-category="sistemas">
+                    <div class="card-top electrico-bg">
+                        <div class="card-icon">⚡</div>
+                        <span class="card-badge badge-electrico">Eléctrico</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Experto en Móviles / Eléctrico</h3>
+                        <p>Sistemas eléctricos, módulos ECU, instalaciones, alternadores, motor de arranque y carga.</p>
+                        <div class="card-tags">
+                            <span>ECU</span><span>Alternador</span><span>Cableado</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TÉCNICO EN ESCANEO -->
+                <div class="team-card card-featured" data-category="sistemas">
+                    <div class="card-top escaneo-bg">
+                        <div class="card-icon">🔍</div>
+                        <span class="card-badge badge-escaneo">Escaneo</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Técnico en Escaneo</h3>
+                        <p>Lectura e interpretación de códigos OBD-II, análisis de datos en tiempo real y diagnóstico electrónico completo.</p>
+                        <div class="card-tags">
+                            <span>OBD-II</span><span>Códigos DTC</span><span>Datos Live</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERTO EN DETALLADO -->
+                <div class="team-card" data-category="especialistas">
+                    <div class="card-top detallado-bg">
+                        <div class="card-icon">✨</div>
+                        <span class="card-badge badge-detallado">Detallado</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Experto en Detallado</h3>
+                        <p>Limpieza profunda, pulido, encerado, restauración de pintura y presentación óptima de cada unidad.</p>
+                        <div class="card-tags">
+                            <span>Pulido</span><span>Encerado</span><span>Restauración</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXPERTO EN ILUMINACIÓN -->
+                <div class="team-card" data-category="sistemas">
+                    <div class="card-top iluminacion-bg">
+                        <div class="card-icon">💡</div>
+                        <span class="card-badge badge-iluminacion">Iluminación</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Experto en Iluminación</h3>
+                        <p>Diagnóstico y reparación de faros, luz de freno, intermitentes, interiores y sistemas LED/HID.</p>
+                        <div class="card-tags">
+                            <span>Faros</span><span>LED / HID</span><span>Intermitentes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DEPARTAMENTO DE COMPRAS -->
+                <div class="team-card" data-category="soporte">
+                    <div class="card-top compras-bg">
+                        <div class="card-icon">🛒</div>
+                        <span class="card-badge badge-compras">Compras</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Departamento de Compras</h3>
+                        <p>Gestión de refacciones, cotizaciones, proveedores y suministro de partes para toda la flotilla.</p>
+                        <div class="card-tags">
+                            <span>Refacciones</span><span>Proveedores</span><span>Cotizaciones</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 Drive Pro GDL. Todos los derechos reservados.</p>
+    <!-- SERVICIOS -->
+    <section id="servicios" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Servicios</span>
+                <h2>Todo lo que tu <span class="accent-text">Flotilla</span> Necesita</h2>
+                <p>Cobertura completa desde el mantenimiento preventivo hasta la reparación mayor.</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="svc-icon">🔬</div>
+                    <h3>Diagnóstico por Escáner</h3>
+                    <p>Análisis OBD-II completo. Leemos todos los sistemas y códigos DTC de cada unidad.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">🛑</div>
+                    <h3>Sistema de Frenos</h3>
+                    <p>Diagnóstico, mantenimiento y reparación completa del sistema de frenado hidráulico.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">🏎️</div>
+                    <h3>Suspensión y Dirección</h3>
+                    <p>Amortiguadores, rótulas, terminales, geometría y alineación profesional.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">💻</div>
+                    <h3>Electrónica Automotriz</h3>
+                    <p>ABS, ESP, sensores, módulos electrónicos y programación de unidades de control.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">⚡</div>
+                    <h3>Sistema Eléctrico</h3>
+                    <p>Batería, alternador, motor de arranque, cableado e instalaciones eléctricas.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">💡</div>
+                    <h3>Iluminación Completa</h3>
+                    <p>Reparación y actualización de todo el sistema de iluminación vehicular.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">✨</div>
+                    <h3>Detallado Profesional</h3>
+                    <p>Pulido, encerado, restauración y presentación impecable de cada unidad.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">🔧</div>
+                    <h3>Mantenimiento Preventivo</h3>
+                    <p>Programas preventivos para maximizar la vida útil y el rendimiento de la flotilla.</p>
+                </div>
+                <div class="service-card">
+                    <div class="svc-icon">🛒</div>
+                    <h3>Gestión de Refacciones</h3>
+                    <p>Compra y suministro de refacciones originales y alternativas al mejor precio.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DIAGNÓSTICO DIGITAL -->
+    <section id="diagnostico" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Diagnóstico Digital</span>
+                <h2>Mándanos el <span class="accent-text">Problema</span> Como Puedas</h2>
+                <p>Cinco canales para que nunca te quedes sin respuesta — sin importar qué tienes disponible.</p>
+            </div>
+            <div class="diag-grid">
+                <div class="diag-card">
+                    <div class="diag-icon">📡</div>
+                    <h3>Datos de Escáner</h3>
+                    <p>Envía los datos de tu escáner OBD-II: códigos DTC, datos en tiempo real o capturas del diagnóstico.</p>
+                    <div class="diag-formats">TXT · CSV · JPG · PDF</div>
+                </div>
+                <div class="diag-card">
+                    <div class="diag-icon">📸</div>
+                    <h3>Imágenes o Video</h3>
+                    <p>Foto o video del problema, la parte afectada, fluidos derramados o cualquier anomalía visible.</p>
+                    <div class="diag-formats">JPG · PNG · MP4 · MOV</div>
+                </div>
+                <div class="diag-card diag-featured">
+                    <div class="diag-icon">🎙️</div>
+                    <h3>Nota de Audio</h3>
+                    <p>Graba el ruido extraño del motor, el chirrido al frenar o cualquier sonido anormal de la unidad.</p>
+                    <div class="diag-formats">MP3 · WAV · OGG · M4A</div>
+                </div>
+                <div class="diag-card">
+                    <div class="diag-icon">💬</div>
+                    <h3>Comentarios del Chofer</h3>
+                    <p>El chofer o dueño describe el problema con sus propias palabras — sin tecnicismos necesarios.</p>
+                    <div class="diag-formats">Texto libre o WhatsApp</div>
+                </div>
+                <div class="diag-card">
+                    <div class="diag-icon">📋</div>
+                    <h3>Reporte Estructurado</h3>
+                    <p>Formulario guiado con historial de fallas, mantenimientos previos y síntomas detallados.</p>
+                    <div class="diag-formats">Formulario online</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REPORTE DE UNIDAD -->
+    <section id="reporte" class="section section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Reportar Unidad</span>
+                <h2>Reporta tu <span class="accent-text">Unidad</span> Ahora</h2>
+                <p>Llena el formulario y el especialista correcto atiende tu caso en menos de 30 minutos.</p>
+            </div>
+
+            <div class="form-wrapper">
+                <form class="report-form" id="reportForm" novalidate>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="unidad">Número de Unidad / Placas <span class="req">*</span></label>
+                            <input type="text" id="unidad" placeholder="Ej: GDL-001 o ABC-123-X" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modelo">Marca y Modelo <span class="req">*</span></label>
+                            <input type="text" id="modelo" placeholder="Ej: Toyota Corolla 2021" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">Nombre del Chofer / Reportante <span class="req">*</span></label>
+                            <input type="text" id="nombre" placeholder="Nombre completo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tel">Teléfono de Contacto <span class="req">*</span></label>
+                            <input type="tel" id="tel" placeholder="33 XXXX XXXX" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="area">Área del Problema <span class="req">*</span></label>
+                        <select id="area" required>
+                            <option value="">— Selecciona el área afectada —</option>
+                            <option>Motor / Transmisión</option>
+                            <option>Frenos</option>
+                            <option>Suspensión / Dirección</option>
+                            <option>Sistema ABS / ESP</option>
+                            <option>Sistema Eléctrico / Móviles</option>
+                            <option>Iluminación</option>
+                            <option>Detallado / Carrocería</option>
+                            <option>Escaneo / Diagnóstico Electrónico</option>
+                            <option>Refacciones / Compras</option>
+                            <option>No sé — Requiero diagnóstico general</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nivel de Urgencia</label>
+                        <div class="urgency-row">
+                            <label class="urgency-opt">
+                                <input type="radio" name="urgencia" value="baja">
+                                <span class="urg-label urg-low">🟢 Baja — Preventivo</span>
+                            </label>
+                            <label class="urgency-opt">
+                                <input type="radio" name="urgencia" value="media" checked>
+                                <span class="urg-label urg-med">🟡 Media — Atender Pronto</span>
+                            </label>
+                            <label class="urgency-opt">
+                                <input type="radio" name="urgencia" value="alta">
+                                <span class="urg-label urg-high">🔴 Alta — Unidad Detenida</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="desc">Descripción del Problema <span class="req">*</span></label>
+                        <textarea id="desc" rows="4" placeholder="Describe el problema: ¿Cuándo ocurre? ¿Qué ruidos o síntomas hay? ¿Desde cuándo? El chofer puede usar sus propias palabras..." required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="km">Kilometraje Actual</label>
+                        <input type="number" id="km" placeholder="Ej: 45,000 km" min="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Adjuntar Archivos <span class="opt">(Opcional)</span></label>
+                        <div class="file-drop" id="fileDrop">
+                            <div class="file-drop-icon">📎</div>
+                            <p>Arrastra archivos aquí o haz clic para seleccionar</p>
+                            <p class="file-hint">Escáner, imágenes, video, audio — cualquier archivo ayuda al diagnóstico</p>
+                            <input type="file" id="fileInput" multiple accept="image/*,video/*,audio/*,.pdf,.txt,.csv" class="file-input-hidden">
+                        </div>
+                        <ul class="file-list" id="fileList"></ul>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                        🔧 Enviar Reporte a OJO
+                    </button>
+                </form>
+
+                <div class="form-success" id="formSuccess">
+                    <div class="success-circle">✅</div>
+                    <h3>¡Reporte Enviado Exitosamente!</h3>
+                    <p>El especialista correcto ya tiene tu caso. Te contactamos en <strong>menos de 30 minutos</strong>.</p>
+                    <button class="btn btn-ghost" onclick="resetForm()">Reportar otra unidad</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="tag">Contacto</span>
+                <h2>¿Necesitas Hablar con <span class="accent-text">OJO</span>?</h2>
+                <p>Estamos disponibles por múltiples canales — elige el que más te convenga.</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Teléfono Directo</h3>
+                    <a href="tel:3312345678" class="contact-link">33 1234 5678</a>
+                    <span class="contact-note">Lunes–Sábado 8am–8pm</span>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Correo Electrónico</h3>
+                    <a href="mailto:contacto@driveprogdl.com" class="contact-link">contacto@driveprogdl.com</a>
+                    <span class="contact-note">Respuesta en menos de 2 horas</span>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Ubicación</h3>
+                    <span class="contact-link">Guadalajara, Jalisco</span>
+                    <span class="contact-note">Servicio a domicilio disponible</span>
+                </div>
+                <div class="contact-card contact-emergency">
+                    <div class="contact-icon">🚨</div>
+                    <h3>Emergencias 24/7</h3>
+                    <a href="tel:3312345678" class="contact-link">33 1234 5678</a>
+                    <span class="contact-note">Unidad detenida = respuesta inmediata</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <span class="logo-ojo">OJO</span>
+                <span class="logo-divider">|</span>
+                <span class="logo-brand">Drive Pro GDL</span>
+            </div>
+            <p class="footer-tagline">Mecánica Integral de Flotillas — Guadalajara, Jalisco</p>
+            <p class="footer-copy">&copy; 2026 Drive Pro GDL. Todos los derechos reservados.</p>
+        </div>
     </footer>
+
+    <script src="app.js"></script>
 </body>
 </html>
