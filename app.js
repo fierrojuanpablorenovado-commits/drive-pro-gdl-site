@@ -1,4 +1,4 @@
-// OJO | Drive Pro GDL
+// Drive Pro GDL
 
 const menuBtn = document.getElementById('menuBtn');
 const nav = document.getElementById('nav');
@@ -69,7 +69,7 @@ reportForm.addEventListener('submit', e => {
 });
 window.resetForm = function() {
     reportForm.reset(); selectedFiles = []; renderFileList();
-    submitBtn.disabled = false; submitBtn.innerHTML = '🔧 Enviar Reporte a OJO';
+    submitBtn.disabled = false; submitBtn.innerHTML = '🔧 Enviar Reporte';
     reportForm.style.display = 'flex'; formSuccess.style.display = 'none';
 };
 
@@ -77,10 +77,10 @@ const header = document.getElementById('header');
 window.addEventListener('scroll', () => { header.style.boxShadow = window.scrollY > 10 ? '0 2px 20px rgba(0,0,0,0.5)' : 'none'; }, { passive: true });
 
 if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; observer.unobserve(entry.target); } });
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.style.opacity='1'; e.target.style.transform='translateY(0)'; obs.unobserve(e.target); } });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.team-card, .service-card, .diag-card, .contact-card').forEach(el => {
-        el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity 0.4s ease, transform 0.4s ease'; observer.observe(el);
+    document.querySelectorAll('.team-card,.service-card,.diag-card,.contact-card').forEach(el => {
+        el.style.opacity='0'; el.style.transform='translateY(20px)'; el.style.transition='opacity 0.4s ease,transform 0.4s ease'; obs.observe(el);
     });
 }
