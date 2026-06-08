@@ -88,20 +88,18 @@ button { cursor: pointer; font-family: inherit; }
     text-decoration: none;
     flex-shrink: 0;
 }
-.logo-ojo {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: var(--accent);
-    letter-spacing: 0.05em;
-}
-.logo-divider {
-    color: var(--border-l);
-    font-weight: 300;
-}
 .logo-brand {
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 1.2rem;
+    font-weight: 800;
     color: var(--text);
+    letter-spacing: -0.01em;
+}
+.logo-sub {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-3);
+    margin-left: 6px;
+    align-self: center;
 }
 .nav {
     display: flex;
